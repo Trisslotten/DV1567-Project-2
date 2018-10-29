@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <float.h>
 
 float* loadDataset(char* filename, int datasetSize, int bufferSize);
-float* writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
+void writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
 
 float average(float* dataset, int datasetSize);
-float max(float* dataset, int datasetSize);
-float min(float* dataset, int datasetSize);
+float maxValue(float* dataset, int datasetSize);
+float minValue(float* dataset, int datasetSize);
 
 float* insertionSort(float* dataset, int datasetSize);
 
@@ -31,11 +32,16 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	float* dataset = loadDataset(datasetSize, bufferSize);
+	float* dataset = loadDataset(datasetFilename, datasetSize, bufferSize);
 
 	float avg = average(dataset, datasetSize);
 	float max = maxValue(dataset, datasetSize);
 	float min = minValue(dataset, datasetSize);
+
+	for(int i = 0; i < datasetSize; i++)
+	{
+		printf("%f\n", dataset[i]);
+	}
 
 	float* sortedDataset = insertionSort(dataset, datasetSize);
 
@@ -55,29 +61,29 @@ float average(float* dataset, int datasetSize)
 	}
 	return (avg / datasetSize);
 }
-float max(float* dataset, int datasetSize)
+float maxValue(float* dataset, int datasetSize)
 {
-	int mx = INT_MIN;
+	float max = FLT_MIN;
 	for(int i = 0; i < datasetSize; i++)
 	{
-		if(datasetSize[i] > mx)
+		if(dataset[i] > max)
 		{
-			mx = datasetSize[i];
+			max = dataset[i];
 		}
 	}
 	return max;
 }
-float min(float* dataset, int datasetSize)
+float minValue(float* dataset, int datasetSize)
 {
-	int mi = INT_MAX;
+	float min = FLT_MAX;
 	for(int i = 0; i < datasetSize; i++)
 	{
-		if(datasetSize[i] < mi)
+		if(dataset[i] < min)
 		{
-			mi = datasetSize[i];
+			min = dataset[i];
 		}
 	}
-	return mi;
+	return min;
 }
 
 float* loadDataset(char* filename, int datasetSize, int bufferSize)
@@ -89,5 +95,17 @@ float* loadDataset(char* filename, int datasetSize, int bufferSize)
 		fread(result + i, bufferSize, sizeof(float), file);
 	}
 	fclose(file);
+	return result;
+}
+
+
+void writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max)
+{
+	
+}
+
+float* insertionSort(float* data, int size)
+{
+	float* result = malloc(sizeof(float)*size);
 	return result;
 }
