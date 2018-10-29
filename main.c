@@ -102,12 +102,6 @@ void writeDataset(char* filename, float* dataset, int bufferSize, float avg, flo
 {
 	
 }
-void swap(float* x, float* y)
-{
-	float temp = *x;
-	*x =  *y;
-	*y = temp;
-}
 void insertionSort(float* data, int size)
 {
 	float temp;
