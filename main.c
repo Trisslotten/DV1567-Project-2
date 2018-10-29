@@ -1,6 +1,6 @@
 #include <stdio.h>
-
-
+#include <stdlib.h>
+#include <limits.h>
 
 float* loadDataset(int datasetSize, bufferSize);
 float* writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
@@ -45,4 +45,37 @@ int main(int argc, char* argv[])
 	free(sortedDataset);
 
 	return 0;
+}
+float average(float* dataset, int datasetSize)
+{
+	float avg = 0;
+	for(int i = 0; i < datasetSize; i++)
+	{
+		avg += dataset[i];
+	}
+	return (avg / datasetSize);
+}
+float max(float* dataset, int datasetSize)
+{
+	int mx = INT_MIN;
+	for(int i = 0; i < datasetSize; i++)
+	{
+		if(datasetSize[i] > mx)
+		{
+			mx = datasetSize[i];
+		}
+	}
+	return max;
+}
+float min(float* dataset, int datasetSize)
+{
+	int mi = INT_MAX;
+	for(int i = 0; i < datasetSize; i++)
+	{
+		if(datasetSize[i] < mi)
+		{
+			mi = datasetSize[i];
+		}
+	}
+	return mi;
 }
