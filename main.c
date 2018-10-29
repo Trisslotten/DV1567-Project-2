@@ -4,7 +4,7 @@
 #include <float.h>
 
 float* loadDataset(char* filename, int datasetSize, int bufferSize);
-void writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
+void writeDataset(char* filename, float* dataset, int datasetSize, int bufferSize, float avg, float min, float max);
 
 float average(float* dataset, int datasetSize);
 float maxValue(float* dataset, int datasetSize);
@@ -38,14 +38,14 @@ int main(int argc, char* argv[])
 	float max = maxValue(dataset, datasetSize);
 	float min = minValue(dataset, datasetSize);
 
-	for(int i = 0; i < datasetSize; i++)
+	for (int i = 0; i < datasetSize; i++)
 	{
 		printf("%f\n", dataset[i]);
 	}
 
 	float* sortedDataset = insertionSort(dataset, datasetSize);
 
-	writeDataset(outputFilename, sortedDataset, bufferSize, avg, min, max);
+	writeDataset(outputFilename, sortedDataset, datasetSize, bufferSize, avg, min, max);
 
 	free(dataset);
 	free(sortedDataset);
@@ -92,6 +92,11 @@ float* loadDataset(char* filename, int datasetSize, int bufferSize)
 	float* result = malloc(sizeof(float)*datasetSize);
 	for (int i = 0; i < datasetSize; i+=bufferSize)
 	{
+		if (i >= datasetSize - bufferSize)
+		{
+			bufferSize = datasetSize - i-1;
+			//printf("load:\ndatasetSize = %d\nbufferSize = %d\ni = %d", datasetSize, bufferSize, i);
+		}
 		fread(result + i, bufferSize, sizeof(float), file);
 	}
 	fclose(file);
@@ -99,9 +104,21 @@ float* loadDataset(char* filename, int datasetSize, int bufferSize)
 }
 
 
-void writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max)
+void writeDataset(char* filename, float* dataset, int datasetSize, int bufferSize, float avg, float min, float max)
 {
-	
+	FILE* file = fopen(filename, "w");
+	float array[3] = {avg, min, max};
+	fwrite(array, 3, sizeof(float), file);
+
+	for(int i = 0; i < datasetSize; i+= bufferSize)
+	{
+		if (i >= datasetSize - bufferSize)
+		{
+			bufferSize = datasetSize - i-1;
+			//printf("write:\ndatasetSize = %d\nbufferSize = %d\ni = %d", datasetSize, bufferSize, i);
+		}
+		fwrite(dataset + i, bufferSize, sizeof(float), file);
+	}
 }
 
 float* insertionSort(float* data, int size)
