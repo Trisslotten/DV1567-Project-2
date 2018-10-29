@@ -1,6 +1,17 @@
 #include <stdio.h>
 
 
+
+float* loadDataset(int datasetSize, bufferSize);
+float* writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
+
+float average(float* dataset, int datasetSize);
+float max(float* dataset, int datasetSize);
+float min(float* dataset, int datasetSize);
+
+float* insertionSort(float* dataset, int datasetSize);
+
+
 int main(int argc, char* argv[])
 {
 	if(argc != 5)
