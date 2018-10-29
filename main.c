@@ -2,7 +2,7 @@
 
 
 
-float* loadDataset(int datasetSize, bufferSize);
+float* loadDataset(char* filename, int datasetSize, int bufferSize);
 float* writeDataset(char* filename, float* dataset, int bufferSize, float avg, float min, float max);
 
 float average(float* dataset, int datasetSize);
@@ -45,4 +45,16 @@ int main(int argc, char* argv[])
 	free(sortedDataset);
 
 	return 0;
+}
+
+float* loadDataset(char* filename, int datasetSize, int bufferSize)
+{
+	FILE* file = fopen(filename, "r");
+	float* result = malloc(sizeof(float)*datasetSize);
+	for (int i = 0; i < datasetSize; i+=bufferSize)
+	{
+		fread(result + i, bufferSize, sizeof(float), file);
+	}
+	fclose(file);
+	return result;
 }
