@@ -93,9 +93,9 @@ float* loadDataset(char* filename, int datasetSize, int bufferSize)
 	{
 		if (i >= datasetSize - bufferSize)
 		{
-			bufferSize = datasetSize - i-1;
-			//printf("load:\ndatasetSize = %d\nbufferSize = %d\ni = %d", datasetSize, bufferSize, i);
+			bufferSize = datasetSize - i;
 		}
+		//printf("load:\ndatasetSize = %d\nbufferSize = %d\ni = %d\n", datasetSize, bufferSize, i);
 		fread(result + i, bufferSize, sizeof(float), file);
 	}
 	fclose(file);
@@ -108,14 +108,14 @@ void writeDataset(char* filename, float* dataset, int datasetSize, int bufferSiz
 	FILE* file = fopen(filename, "w");
 	float array[3] = {avg, min, max};
 	fwrite(array, 3, sizeof(float), file);
-
+	int cont = 1;
 	for(int i = 0; i < datasetSize; i+= bufferSize)
 	{
 		if (i >= datasetSize - bufferSize)
 		{
-			bufferSize = datasetSize - i-1;
-			//printf("write:\ndatasetSize = %d\nbufferSize = %d\ni = %d", datasetSize, bufferSize, i);
+			bufferSize = datasetSize - i;
 		}
+		//printf("write:\ndatasetSize = %d\nbufferSize = %d\ni = %d\n", datasetSize, bufferSize, i);
 		fwrite(dataset + i, bufferSize, sizeof(float), file);
 	}
 }

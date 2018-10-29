@@ -27,6 +27,5 @@ int main(int argc, char* argv[])
 	FILE *file = fopen(filename, "w");
 	fwrite(data, size, sizeof(float), file);
 	fclose(file);
-
 	return 0;
 }
