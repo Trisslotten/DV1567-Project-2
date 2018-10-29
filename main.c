@@ -10,7 +10,7 @@ float average(float* dataset, int datasetSize);
 float maxValue(float* dataset, int datasetSize);
 float minValue(float* dataset, int datasetSize);
 
-float* insertionSort(float* dataset, int datasetSize);
+void insertionSort(float* dataset, int datasetSize);
 
 
 int main(int argc, char* argv[])
@@ -43,12 +43,11 @@ int main(int argc, char* argv[])
 		printf("%f\n", dataset[i]);
 	}
 
-	float* sortedDataset = insertionSort(dataset, datasetSize);
+	insertionSort(dataset, datasetSize);
 
-	writeDataset(outputFilename, sortedDataset, datasetSize, bufferSize, avg, min, max);
+	writeDataset(outputFilename, dataset, datasetSize, bufferSize, avg, min, max);
 
 	free(dataset);
-	free(sortedDataset);
 
 	return 0;
 }
@@ -120,9 +119,19 @@ void writeDataset(char* filename, float* dataset, int datasetSize, int bufferSiz
 		fwrite(dataset + i, bufferSize, sizeof(float), file);
 	}
 }
-
-float* insertionSort(float* data, int size)
+void insertionSort(float* data, int size)
 {
-	float* result = malloc(sizeof(float)*size);
-	return result;
+	float temp;
+	int j;
+	for(int i = 1; i < size; i++)
+	{
+		temp = data[i];
+		j = i - 1;
+		while(temp < data[j] && j>=0)
+		{
+			data[j + 1] = data[j];
+			j--;
+		}
+		data[j + 1] = temp;
+	}
 }
