@@ -1,0 +1,5 @@
+buffersize = 1
+
+real	0m0.391s
+user	0m0.373s
+sys	0m0.017s
