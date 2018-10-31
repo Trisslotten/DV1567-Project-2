@@ -1,5 +1,5 @@
 buffersize = 1
 
-real	0m0.391s
-user	0m0.373s
-sys	0m0.017s
+real	0m4.440s
+user	0m4.258s
+sys	0m0.096s

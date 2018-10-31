@@ -1,5 +1,5 @@
 size = 2000000
 
-real	0m0.791s
-user	0m0.770s
-sys	0m0.010s
+real	0m0.795s
+user	0m0.765s
+sys	0m0.020s
