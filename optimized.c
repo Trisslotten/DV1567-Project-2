@@ -12,6 +12,12 @@ float minValue(float* dataset, int datasetSize);
 
 void insertionSort(float* dataset, int datasetSize);
 
+int compare(const void* _a, const void* _b)
+{
+	float a = *(float*)_a;
+	float b = *(float*)_b;
+	return (a > b) - (a < b);
+}
 
 int main(int argc, char* argv[])
 {
@@ -45,7 +51,8 @@ int main(int argc, char* argv[])
 	}
 	*/
 
-	insertionSort(dataset, datasetSize);
+	//insertionSort(dataset, datasetSize);
+	qsort(dataset, datasetSize, sizeof(float), compare);
 
 	writeDataset(outputFilename, dataset, datasetSize, bufferSize, avg, min, max);
 
