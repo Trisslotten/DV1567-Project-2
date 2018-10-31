@@ -12,6 +12,8 @@ float minValue(float* dataset, int datasetSize);
 
 void insertionSort(float* dataset, int datasetSize);
 
+void quickSort(float* dataset, int size);
+
 int compare(const void* _a, const void* _b)
 {
 	float a = *(float*)_a;
@@ -52,7 +54,7 @@ int main(int argc, char* argv[])
 	*/
 
 	//insertionSort(dataset, datasetSize);
-	qsort(dataset, datasetSize, sizeof(float), compare);
+	quickSort(dataset, datasetSize);
 
 	writeDataset(outputFilename, dataset, datasetSize, bufferSize, avg, min, max);
 
@@ -142,4 +144,9 @@ void insertionSort(float* data, int size)
 		}
 		data[j + 1] = temp;
 	}
+}
+
+void quickSort(float* data, int size)
+{
+	qsort(data, size, sizeof(float), compare);
 }

@@ -1,0 +1,9 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+ 81.11      2.37     2.37                             compare
+ 13.81      2.77     0.40                             frame_dummy
+  3.80      2.88     0.11                             writeDataset
+  2.07      2.94     0.06                             loadDataset
